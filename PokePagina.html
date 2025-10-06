@@ -10,7 +10,7 @@
     <div class="contenido">
         <div class="cabecera">
             <div class="title">
-                <h1>GLISCOR</h1>
+                <h1 id="nombrepokemon">PIKACHU</h1>
             </div>
         </div>
         <div class="busqueda">
@@ -23,10 +23,29 @@
         </div>
         <div class="fotos">
             <div>
-                <img src="472.png"></img>
+                <img id="imagenfrontal"></img>
+                <img id="imagentrasera"></img>  
             </div>
         </div>
     </div>
+
+    <script>
+        const url = "https://pokeapi.co/api/v2/pokemon/gliscor";
+        document.addEventListener("DOMContentLoaded", () => {
+            const parrafo = document.getElementById("nombrepokemon");
+            const imgFrontal = document.getElementById("imagenfrontal");
+            const imgTrasera = document.getElementById("imagentrasera");
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data); 
+                    parrafo.textContent = data.name.toUpperCase(); 
+                    imgFrontal.src=data.sprites.front_default;
+                    imgTrasera.src=data.sprites.back_default;
+                })
+                .catch(error => console.error("Error al cargar el Pokémon:", error));
+        });
+    </script>
 
 </body>
 </html>
