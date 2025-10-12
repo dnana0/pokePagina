@@ -14,11 +14,12 @@ background-repeat: no-repeat;
 
   display: grid;
 
-  grid-template-columns: 30fr 40fr 40fr;
+  grid-template-columns: 450px 40fr 40fr;
   grid-template-rows: auto;
   grid-template-areas: 
     "header search search"
     "photo main main"
+    "cry main2 main2"
     "footer footer footer";
   row-gap: 20px;
   column-gap: 20px;
@@ -79,7 +80,9 @@ box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.9);
 .busqueda{
   grid-area: search;
   margin-top: 20px;
-
+  display: flex;
+  align-items: center;  
+  justify-content:center;
   
   border-color: #696FC7;
   border-style:solid;
@@ -99,6 +102,9 @@ box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.9);
   border-radius: 15px;
   background-color: white;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  font-size: large;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight:400;
 
 
 
@@ -129,4 +135,51 @@ box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.9);
   margin: auto;
   width: 200px;
   
+}
+
+.stats{
+  display: flex;
+  align-items: center;  
+  justify-content:space-evenly; 
+  grid-area: main2;
+  border-color: #696FC7;
+  border-style:solid;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+}
+
+.cry{
+  display: flex;
+  align-items: center;  
+  justify-content:space-evenly; 
+  grid-area: cry;
+  border-color: #696FC7;
+  border-style:solid;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+#inputPokemon {
+
+  background: transparent; 
+  border: none;             
+  outline: none;            
+  color: white;
+  font-size: 1.2em;                       
+  padding: 5px;
+  color: #696FC7;
+}
+
+#btnBuscar {
+
+  background-color: #696FC7;  
+  border: none;
+  border-radius: 10px;        
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }

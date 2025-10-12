@@ -14,10 +14,19 @@
             </div>
         </div>
         <div class="busqueda">
+            <input type="text" id="inputPokemon" placeholder="Search a Pokemon">
+            <button id="btnBuscar">Buscar</button>
+            
         </div>
         <div class="descripcion">
             <div>
-                <p>Si consigue aprovechar bien las leves corrientes del aire, 
+                <p id="parrafoDescripcion1">Si consigue aprovechar bien las leves corrientes del aire, 
+                    puede dar la vuelta al globo sin aletear ni una sola vez.</p>
+                <p id="parrafoDescripcion2">Si consigue aprovechar bien las leves corrientes del aire, 
+                    puede dar la vuelta al globo sin aletear ni una sola vez.</p>
+                <p id="parrafoDescripcion3">Si consigue aprovechar bien las leves corrientes del aire, 
+                    puede dar la vuelta al globo sin aletear ni una sola vez.</p>
+                <p id="parrafoDescripcion4">Si consigue aprovechar bien las leves corrientes del aire, 
                     puede dar la vuelta al globo sin aletear ni una sola vez.</p>
             </div>
         </div>
@@ -27,14 +36,51 @@
                 <img id="imagentrasera"></img>  
             </div>
         </div>
+
+        <div class="cry">
+            <audio id = "audiocry"controls>
+            </audio>
+        </div>
+
+
+        <div class="stats">
+            <h3>HP</h3>
+            <p id="hp">80</p>
+            <h3>Attack</h3>
+            <p id="atq">80</p>
+            <h3>Defense</h3>
+            <p id="def">80</p>
+            <h3>Sp. Atk</h3>
+            <p id="spat">80</p>
+            <h3>Sp. Def</h3>
+            <p id="sdef">80</p>
+            <h3>Speed</h3>
+            <p id="spd">80</p>
+
+        </div>
     </div>
 
     <script>
-        const url = "https://pokeapi.co/api/v2/pokemon/gliscor";
         document.addEventListener("DOMContentLoaded", () => {
+            const parametros = new URLSearchParams(window.location.search);
+            const nombrePokemon = parametros.get("pokemon")?.toLowerCase() || "gliscor";
+            const url = `https://pokeapi.co/api/v2/pokemon/${nombrePokemon}`;
+            const urlDesc = `https://pokeapi.co/api/v2/pokemon-species/${nombrePokemon}`;
             const parrafo = document.getElementById("nombrepokemon");
+            const parrafoDescripcion = document.getElementById("parrafoDescripcion1");
+            const parrafoDescripcion2 = document.getElementById("parrafoDescripcion2");
+            const parrafoDescripcion3 = document.getElementById("parrafoDescripcion3");
+            const parrafoDescripcion4 = document.getElementById("parrafoDescripcion4");
             const imgFrontal = document.getElementById("imagenfrontal");
             const imgTrasera = document.getElementById("imagentrasera");
+            const hp = document.getElementById("hp");
+            const atq = document.getElementById("atq");
+            const def = document.getElementById("def");
+            const spat = document.getElementById("spat");
+            const sdef = document.getElementById("sdef");
+            const spd = document.getElementById("spd");
+            const cry = document.getElementById("audiocry");
+            console.log(cry);
             fetch(url)
                 .then(res => res.json())
                 .then(data => {
@@ -42,9 +88,43 @@
                     parrafo.textContent = data.name.toUpperCase(); 
                     imgFrontal.src=data.sprites.front_default;
                     imgTrasera.src=data.sprites.back_default;
+                    hp.textContent = data.stats[0].base_stat;
+                    atq.textContent = data.stats[1].base_stat;
+                    def.textContent = data.stats[2].base_stat;
+                    spat.textContent = data.stats[3].base_stat;
+                    sdef.textContent = data.stats[4].base_stat;
+                    spd.textContent = data.stats[5].base_stat;
+                    cry.src = data.cries.latest;
                 })
                 .catch(error => console.error("Error al cargar el Pokémon:", error));
-        });
+            fetch(urlDesc)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data); 
+                    parrafoDescripcion.textContent = data.flavor_text_entries[0].flavor_text;
+                    parrafoDescripcion2.textContent = data.flavor_text_entries[1].flavor_text;
+                    parrafoDescripcion3.textContent = data.flavor_text_entries[2].flavor_text;
+                    parrafoDescripcion4.textContent = data.flavor_text_entries[3].flavor_text;
+                    
+                })
+                .catch(error => console.error("Error al cargar el Pokémon:", error));
+
+            const input = document.getElementById("inputPokemon");
+            const boton = document.getElementById("btnBuscar");
+
+            boton.addEventListener("click", () => {
+                const valor = input.value.trim().toLowerCase();
+                if (valor) {
+                    window.location.href = `pokepagina.html?pokemon=${valor}`;
+                }
+            });
+
+            input.addEventListener("keypress", (e) => {
+                if (e.key === "Enter") {
+                    boton.click();
+                }
+            });
+        });;
     </script>
 
 </body>
